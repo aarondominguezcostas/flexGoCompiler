@@ -9,7 +9,6 @@
 
 int main(){
 
-
     //iniciar sistema de entrada
     abrirArchivo("concurrentSum.go");
 

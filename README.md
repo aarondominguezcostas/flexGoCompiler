@@ -1,14 +1,10 @@
 # goCompiler en flex
 
-Compilador de Go en C.
+Compilador de Go en C, usando Flex para el analizador sintactico.
 
-Para compilar el programa, se debe usar el comando "make" en el directorio principal del proyecto.
-El ejecutable se encontrará dentro de la carpeta "build".
+Para compilar y ejercutar el código, seguir estos pasos:
+1. Descomprimir la carpeta
+2. En el directorio base, ejecutar el script: ./compile.sh
+3. En el mismo directorio, ejecutar al programa con el siguiente comando: ./build/final_program
 
-Para ejecutar correctamente el orden de comando sería:
-
-1. Moverse a la carpeta base del proyecto
-2. make
-3. ./build/final_program
-
-El fichero concurrentSum.go debería encontrarse en el directorio base del proyecto para que el programa lo detecte correctamente.# flexGoCompiler
+El fichero concurrentSum.go debería encontrarse en el directorio base del proyecto para que el programa lo detecte correctamente
