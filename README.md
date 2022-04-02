@@ -1,4 +1,4 @@
-# goCompiler
+# goCompiler en flex
 
 Compilador de Go en C.
 

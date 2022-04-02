@@ -2015,7 +2015,12 @@ void abrirArchivo(char *nombreArchivo){
 
 void nextComponent(tipoelem *actual){
     actual->valor = yylex();
-    strcpy(actual->identificador, yytext);
+
+    if(actual->identificador!=NULL){
+        free(actual->identificador);
+        actual->identificador = NULL;
+    }
+    actual->identificador = strdup(yytext);
 
     if(actual->valor == ID){
         //buscar en la tabla de simbolos
@@ -2023,6 +2028,11 @@ void nextComponent(tipoelem *actual){
     }else if(actual->valor == 0){
         //componente lexico no reconocido
         showError(8);
+    }else if(actual->valor == OPERATOR){
+        //si es solo un caracter se devuekve como valor su valor ascii
+        if(strlen(actual->identificador)==1){
+            actual->valor = actual->identificador[0];
+        }
     }
 }
 
