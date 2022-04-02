@@ -93,8 +93,8 @@ IMAGINARIO        ({ENTERO}|{FLOAT})i
 {ENTERO}    {return INTEGER;}
 {FLOAT}     {return FLOAT;}
 {IMAGINARIO} {return IMAGINARY;}
-.           {return 0;}
-<<EOF>>     {return EOFVALUE;}
+.           {return -1;}
+<<EOF>>     {yyterminate();}
 
 %%
 
@@ -103,8 +103,7 @@ void abrirArchivo(char *nombreArchivo){
     FILE *archivo;
     archivo = fopen(nombreArchivo, "r");
     if(archivo == NULL){
-        printf("No se pudo abrir el archivo\n");
-        exit(1);
+        showError(1);
     }
     yyin = archivo;
 }
@@ -112,16 +111,15 @@ void abrirArchivo(char *nombreArchivo){
 void nextComponent(tipoelem *actual){
     actual->valor = yylex();
 
-    if(actual->identificador!=NULL){
-        free(actual->identificador);
-        actual->identificador = NULL;
+    if(actual->valor != 0){
+        actual->identificador = strdup(yytext);
     }
-    actual->identificador = strdup(yytext);
+
 
     if(actual->valor == ID){
         //buscar en la tabla de simbolos
         findElement(actual);
-    }else if(actual->valor == 0){
+    }else if(actual->valor == -1){
         //componente lexico no reconocido
         showError(8);
     }else if(actual->valor == OPERATOR){
@@ -130,6 +128,10 @@ void nextComponent(tipoelem *actual){
         if(strlen(actual->identificador)==1){
             actual->valor = actual->identificador[0];
         }
+    }else if(actual->valor == 0){
+        //al llamar a yyterminate, se devuelve 0
+        //se debe cambiar al valor que tenemos definido para EOF en definiciones.h
+        actual->valor = EOFVALUE;
     }
 }
 

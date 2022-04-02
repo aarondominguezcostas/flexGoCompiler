@@ -4,7 +4,6 @@
 
 #include "tablaSimbolos.h"
 #include "analizadorSintactico.h"
-#include "sistemaEntrada.h"
 #include "lex.yy.h"
 
 
@@ -26,5 +25,5 @@ int main(){
 
     //liberar memoria correspondiente a la tabla de simbolos y al sistema de entrada
     destroyTable();
-    endSystem();
+    cerrarArchivo();
 }
