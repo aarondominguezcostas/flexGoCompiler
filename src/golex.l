@@ -137,4 +137,5 @@ void nextComponent(tipoelem *actual){
 
 void cerrarArchivo(){
     fclose(yyin);
+    yylex_destroy();
 }
